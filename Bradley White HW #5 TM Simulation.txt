@@ -1,0 +1,28 @@
+; Bradley White
+; HW #5: http://morphett.info/turing/turing.html
+; CSCI 338
+; April 1, 2016
+; This program increments a binary number or prints a :( if the input is not a binary number
+; <current state> <current symbol> <new symbol> <direction> <new state>
+
+; Machine starts in state0
+; State 0: Check for empty string
+0 * * * 1
+0 _ _ * reject2
+
+; State 1: Read each symbol, checking for any Non-binary digits
+1 * * r 1
+1 2 2 r reject
+1 _ _ l 2
+
+; State 2: Binary number detected increment by one
+2 0 1 * halt-accept
+2 1 0 l 2
+2 _ 1 * halt-accept
+
+; Reject state if a Non-binary digit is detected
+reject * * r reject
+reject _ _ l reject2
+reject2 * _ l reject2
+reject2 _ : r reject3
+reject3 _ ( * halt-reject

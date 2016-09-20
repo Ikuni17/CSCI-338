@@ -1,0 +1,18 @@
+; Bradley White
+; CSCI 338
+; HW #7: http://morphett.info/turing/turing.html
+; April 14, 2016
+; This Turing machine simulates a Linear Bounded Automaton (LBA).
+; <current state> <current symbol> <new symbol> <direction> <new state>
+
+; Machine starts in state0
+0 L L r 1
+
+; State 1: Move the head right until the R is read
+1 * * r 1
+1 R R l 2
+
+; State 2: Increment the binary number, or if the string is all ones replace with zeros
+2 0 1 * halt-accept
+2 1 0 l 2
+2 L L * halt-accept
